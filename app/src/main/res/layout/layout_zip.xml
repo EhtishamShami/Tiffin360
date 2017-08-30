@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<ImageView
+    android:id="@+id/headerView"
+    android:layout_width="400dp"
+    android:layout_height="200dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/background"
+    />
+
+    <TextView
+        android:id="@+id/mealPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meal_plan"
+        app:layout_constraintStart_toStartOf="@id/headerView"
+        app:layout_constraintEnd_toEndOf="@id/headerView"
+        app:layout_constraintTop_toTopOf="@id/headerView"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/white"
+        />
+
+    <EditText
+        android:id="@+id/zipCodeET"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="@string/zipCode"
+        android:background="@drawable/round_corner"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:textColorHint="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@id/mealPlan"
+        app:layout_constraintEnd_toStartOf="@id/mealPlan"
+        app:layout_constraintTop_toBottomOf="@id/mealPlan"
+        />
+
+    <ImageView
+        android:id="@+id/enableLocationIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_gps_fixed_indicator"
+        app:layout_constraintTop_toTopOf="@id/zipCodeET"
+        app:layout_constraintBottom_toBottomOf="@id/zipCodeET"
+        app:layout_constraintEnd_toEndOf="@id/zipCodeET"
+        android:layout_margin="8dp"
+        />
+
+
+    <TextView
+        android:id="@+id/zipcodedesET"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/zipCode_ds"
+        android:singleLine="false"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toEndOf="@id/mealPlan"
+        app:layout_constraintEnd_toStartOf="@id/mealPlan"
+        app:layout_constraintTop_toBottomOf="@id/zipCodeET"
+        android:textColor="@android:color/white"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="2dp"
+        android:background="@android:color/white"
+        app:layout_constraintStart_toEndOf="@id/mealPlan"
+        app:layout_constraintEnd_toStartOf="@id/mealPlan"
+        app:layout_constraintTop_toBottomOf="@id/zipcodedesET"
+        app:layout_constraintBottom_toBottomOf="@id/headerView"
+        android:layout_margin="16dp"
+        />
+    
+
+
+</android.support.constraint.ConstraintLayout>
