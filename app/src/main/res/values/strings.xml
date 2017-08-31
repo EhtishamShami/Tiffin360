@@ -12,4 +12,8 @@
     <string name="preparedbyLocal">Prepaid by Local Chef</string>
     <string name="OrderNow">Order Now</string>
     <string name="promotiontv">Meals Between $7.50 - $10.00 + Free Delivery</string>
+    <string name="mealPlan">Select Your Meal Plan</string>
+    <string name="defaultPlan">Default Meal Plan</string>
+    <string name="vegCheck">Vegetarian</string>
+    <string name="selectPreferred">Select additional preferred meal options</string>
 </resources>

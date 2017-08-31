@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff4f4">
+
+   <TextView
+       android:id="@+id/selectMealPlanTV"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:text="@string/meal_plan_select"
+       android:layout_margin="16dp"
+       tools:layout_editor_absoluteX="125dp" />
+
+
+    <TextView
+        android:id="@+id/deafultPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/selectMealPlanTV"
+        app:layout_constraintStart_toEndOf="@+id/selectMealPlanTV"
+        app:layout_constraintEnd_toStartOf="@+id/selectMealPlanTV"
+        android:text="@string/defaultPlan"
+        android:layout_margin="16dp"
+        tools:layout_editor_absoluteX="137dp" />
+
+    <CheckBox
+        android:id="@+id/vegCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toEndOf="@+id/selectMealPlanTV"
+        app:layout_constraintEnd_toStartOf="@+id/selectMealPlanTV"
+        app:layout_constraintTop_toBottomOf="@+id/deafultPlan"
+        tools:layout_editor_absoluteX="176dp" />
+
+    <TextView
+        android:id="@+id/vegatrianTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/vegCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/selectMealPlanTV"
+        app:layout_constraintEnd_toStartOf="@+id/selectMealPlanTV"
+        android:text="@string/vegCheck"
+        android:layout_margin="16dp"
+        tools:layout_editor_absoluteX="159dp" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="120dp"
+        android:layout_height="2dp"
+        android:layout_margin="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/vegatrianTV"
+        app:layout_constraintStart_toEndOf="@+id/selectMealPlanTV"
+        app:layout_constraintEnd_toStartOf="@+id/selectMealPlanTV"
+        tools:layout_editor_absoluteX="132dp" />
+
+    <TextView
+        android:id="@+id/prefreedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintStart_toEndOf="@+id/selectMealPlanTV"
+        app:layout_constraintEnd_toStartOf="@+id/selectMealPlanTV"
+        android:text="@string/selectPreferred"
+        android:layout_margin="16dp"
+        tools:layout_editor_absoluteX="67dp" />
+
+
+    <CheckBox
+        android:id="@+id/chickenCheck"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="233dp"
+        tools:layout_editor_absoluteX="282dp" />
+
+
+    <CheckBox
+        android:id="@+id/beefCheck"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="233dp"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <CheckBox
+        android:id="@+id/seefoodCheck"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="233dp"
+        tools:layout_editor_absoluteX="102dp" />
+
+    <CheckBox
+        android:id="@+id/lambCheck"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="233dp"
+        tools:layout_editor_absoluteX="188dp" />
+
+</android.support.constraint.ConstraintLayout>
