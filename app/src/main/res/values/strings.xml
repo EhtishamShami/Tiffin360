@@ -16,4 +16,10 @@
     <string name="defaultPlan">Default Meal Plan</string>
     <string name="vegCheck">Vegetarian</string>
     <string name="selectPreferred">Select additional preferred meal options</string>
+    <string name="chickenTV">Chicken</string>
+    <string name="beefTV">Beef</string>
+    <string name="seafoodTV">Seafood</string>
+    <string name="lambTV">Lamb</string>
+    <string name="whereTV">Where do you want it to be delivered?</string>
+    <string name="checkoutBtnTV">Go To Checkout</string>
 </resources>
