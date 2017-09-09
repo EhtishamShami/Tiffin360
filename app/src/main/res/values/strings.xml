@@ -22,4 +22,12 @@
     <string name="lambTV">Lamb</string>
     <string name="whereTV">Where do you want it to be delivered?</string>
     <string name="checkoutBtnTV">Go To Checkout</string>
+    <string name="totalPrice">Total Price</string>
+    <string name="nameOnCard">Name on Card</string>
+    <string name="cardNumber">Card Number</string>
+    <string name="expiryDate">Expiry Data</string>
+    <string name="securityNumber">Security Number</string>
+    <string name="payNow">Pay Now</string>
+    <string name="selectDeliveryDays">Select Your Delivery Days</string>
+    <string name="qty">QTY</string>
 </resources>

@@ -17,6 +17,12 @@
         android:roundIcon="@drawable/logo_colored"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"
+            />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBY5JDR6NueMK0NVxyTMBx-GmSULzY0rg8"/>
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".Splash_Activity">
@@ -26,5 +32,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
