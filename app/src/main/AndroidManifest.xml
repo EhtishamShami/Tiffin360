@@ -31,6 +31,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ZipCodeActivity"/>
+        <activity android:name=".ZipCodeActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".DeliveryDayActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/DialogTheme"
+            />
+        <activity android:name=".Select_Meal"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/DialogTheme"
+            />
+        <activity android:name=".Checkout"
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 </manifest>

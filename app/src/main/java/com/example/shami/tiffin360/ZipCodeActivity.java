@@ -18,12 +18,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.shami.tiffin360.Adapters.MealPlanAdapter;
+import com.example.shami.tiffin360.Data_Models.Meal_Data;
 import com.example.shami.tiffin360.UtilityClass.Constants;
 import com.example.shami.tiffin360.UtilityClass.LoaderClass;
 import com.example.shami.tiffin360.UtilityClass.Network_Utility;
@@ -41,6 +45,8 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shami on 9/10/2017.
@@ -67,12 +73,25 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
     LayoutZipBinding mBinding;
 
 
+    MealPlanAdapter adapter;
+
+    List<Meal_Data> mList;
+    int select_Position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_zip);
         mBinding= DataBindingUtil.setContentView(ZipCodeActivity.this,R.layout.layout_zip);
         progress = new ProgressDialog(this);
+        mList=Meal();
+        adapter=new MealPlanAdapter(mList, new MealPlanAdapter.callback() {
+            @Override
+            public void SelectItem(int position) {
+                Toast.makeText(getApplicationContext(),"" +position,Toast.LENGTH_SHORT).show();
+                select_Position=position;
+            }
+        });
         Intent intent=getIntent();
         if(intent!=null)
         {
@@ -98,8 +117,35 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         });
 
 
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.recyclerView.setAdapter(adapter);
 
 
+        mBinding.selectDaysBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent deliverYDayIntent=new Intent(ZipCodeActivity.this,DeliveryDayActivity.class);
+               startActivity(deliverYDayIntent);
+            }
+        });
+
+
+    }
+
+    public void startActivity(Intent intent) {
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+        ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
+    }
+
+
+    public List<Meal_Data> Meal()
+    {
+        List<Meal_Data> mealData=new ArrayList<Meal_Data>();
+        mealData.add(new Meal_Data("Launch Only","Meals Between $7.50 - $10.00 + Free Delivery"));
+        mealData.add(new Meal_Data("Dinner Only","Meals Between $7.50 - $10.00 + Free Delivery"));
+        mealData.add(new Meal_Data("Dinner and  Laucnh","Meals Between $7.50 - $10.00 + Free Delivery"));
+        mealData.add(new Meal_Data("Dinner and Breakfast","Meals Between $7.50 - $10.00 + Free Delivery"));
+        return mealData;
     }
 
 
@@ -320,4 +366,8 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(loaderID, null, this);
     }
+
+
+
+
 }

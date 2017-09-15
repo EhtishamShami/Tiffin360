@@ -8,9 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Style for Dialoge Activity -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+
     <!-- Select Delivery day style view -->
     <style name="DeliverDayTVStyle">
-
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorAccent</item>
@@ -25,6 +36,28 @@
     </style>
 
 
+    <!-- Buttom Button style -->
+
+    <style name="ButtomButton" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="ButtomButtonPurple" parent="ButtomButton">
+
+        <item name="android:text">@string/selectDeliveryDays</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">#E94C53</item>
+    </style>
+
+
+    <style name="ButtomButtonWhite" parent="ButtomButton">
+
+        <item name="android:text">@string/selectDeliveryDays</item>
+        <item name="android:textColor">#E94C53</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
 
 
 </resources>

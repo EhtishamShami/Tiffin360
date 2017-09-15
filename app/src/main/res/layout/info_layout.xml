@@ -57,9 +57,10 @@
         android:layout_height="wrap_content"
         android:text="@string/nameOnCard"
         android:layout_marginTop="32dp"
+        android:layout_margin="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerView"
-        tool:layout_editor_absoluteX="16dp" />
+        />
 
     <EditText
         android:id="@+id/nameET"
@@ -78,6 +79,7 @@
         android:layout_height="wrap_content"
         android:text="@string/cardNumber"
         android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameET" />
 
@@ -150,5 +152,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SecurityCodeET"
         />
+
+
 
 </android.support.constraint.ConstraintLayout>
