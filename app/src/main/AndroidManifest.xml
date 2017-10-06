@@ -45,5 +45,8 @@
         <activity android:name=".Checkout"
             android:windowSoftInputMode="stateHidden"
             />
+        <activity android:name=".Image_Slider"
+            android:theme="@style/Theme.Transparent"
+            />
     </application>
 </manifest>

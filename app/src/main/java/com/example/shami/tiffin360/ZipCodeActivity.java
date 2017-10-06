@@ -2,7 +2,6 @@ package com.example.shami.tiffin360;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +54,6 @@ import java.util.List;
 public class ZipCodeActivity extends AppCompatActivity implements LoaderCallbacks<String>,  LocationListener {
 
 
-    ProgressDialog progress;
     private int loaderID=1;
     private static final String USGS_REQUEST_URL="http://api.geonames.org/findNearbyPostalCodesJSON?";
     String lat="";
@@ -83,12 +81,11 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_zip);
         mBinding= DataBindingUtil.setContentView(ZipCodeActivity.this,R.layout.layout_zip);
-        progress = new ProgressDialog(this);
         mList=Meal();
-        adapter=new MealPlanAdapter(mList, new MealPlanAdapter.callback() {
+        adapter=new MealPlanAdapter(ZipCodeActivity.this,mList, new MealPlanAdapter.callback() {
             @Override
             public void SelectItem(int position) {
-                Toast.makeText(getApplicationContext(),"" +position,Toast.LENGTH_SHORT).show();
+                adapter.Update(position);
                 select_Position=position;
             }
         });
@@ -110,7 +107,6 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         mBinding.enableLocationIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"TEst",Toast.LENGTH_SHORT).show();
                 initGoogleAPIClient();
                 checkPermissions();
             }
@@ -141,20 +137,16 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
     public List<Meal_Data> Meal()
     {
         List<Meal_Data> mealData=new ArrayList<Meal_Data>();
-        mealData.add(new Meal_Data("Launch Only","Meals Between $7.50 - $10.00 + Free Delivery"));
-        mealData.add(new Meal_Data("Dinner Only","Meals Between $7.50 - $10.00 + Free Delivery"));
-        mealData.add(new Meal_Data("Dinner and  Laucnh","Meals Between $7.50 - $10.00 + Free Delivery"));
-        mealData.add(new Meal_Data("Dinner and Breakfast","Meals Between $7.50 - $10.00 + Free Delivery"));
+        mealData.add(new Meal_Data("Launch Only","Meals Between $7.50 - $10.00 + Free Delivery",false));
+        mealData.add(new Meal_Data("Dinner Only","Meals Between $7.50 - $10.00 + Free Delivery",false));
+        mealData.add(new Meal_Data("Dinner and  Laucnh","Meals Between $7.50 - $10.00 + Free Delivery",false));
+        mealData.add(new Meal_Data("Dinner and Breakfast","Meals Between $7.50 - $10.00 + Free Delivery",false));
         return mealData;
     }
 
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
-        progress.setMessage("Feteching Zipcode ");
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.setIndeterminate(true);
-        progress.show();
         URL url= Network_Utility.createurl(USGS_REQUEST_URL,lat,lng);
 
         return new LoaderClass(this,url);
@@ -162,7 +154,6 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        progress.hide();
         mBinding.zipCodeET.setText(data);
     }
 

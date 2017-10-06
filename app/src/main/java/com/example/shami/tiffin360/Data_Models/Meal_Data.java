@@ -7,10 +7,20 @@ package com.example.shami.tiffin360.Data_Models;
 public class Meal_Data {
     private String Food_Title;
     private String Food_Descrption;
+    private boolean enabled;
 
-    public Meal_Data(String food_Time, String food_Descrption) {
+    public Meal_Data(String food_Time, String food_Descrption,boolean flag) {
         Food_Title = food_Time;
         Food_Descrption = food_Descrption;
+        enabled=flag;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getFood_Title() {

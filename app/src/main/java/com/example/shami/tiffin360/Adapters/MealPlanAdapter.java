@@ -1,5 +1,7 @@
 package com.example.shami.tiffin360.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shami.tiffin360.Data_Models.Meal_Data;
+import com.example.shami.tiffin360.Image_Slider;
 import com.example.shami.tiffin360.R;
+import com.example.shami.tiffin360.UtilityClass.Constants;
 
 import java.util.List;
 
@@ -23,8 +27,11 @@ public class MealPlanAdapter extends  RecyclerView.Adapter<MealPlanAdapter.MealP
 
     callback mClickLister;
 
-    public MealPlanAdapter(List<Meal_Data> mMealData, callback dh)
+    Context mContext;
+
+    public MealPlanAdapter(Context context,List<Meal_Data> mMealData, callback dh)
     {
+        mContext=context;
         mealData=mMealData;
         mClickLister=dh;
     }
@@ -44,10 +51,28 @@ public class MealPlanAdapter extends  RecyclerView.Adapter<MealPlanAdapter.MealP
     }
 
     @Override
-    public void onBindViewHolder(MealPlanAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(final MealPlanAdapterViewHolder holder, final int position) {
 
         holder.mTitle.setText(mealData.get(position).getFood_Title());
         holder.mDescription.setText(mealData.get(position).getFood_Descrption());
+        if(mealData.get(position).isEnabled())
+        {
+            holder.mCheckerIV.setImageResource(R.drawable.checked);
+        }
+        else
+        {
+            holder.mCheckerIV.setImageResource(R.drawable.un_check_white);
+        }
+
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, Image_Slider.class);
+                intent.putExtra(Constants.slider_title,mealData.get(position).getFood_Title());
+                mContext.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -84,6 +109,25 @@ public class MealPlanAdapter extends  RecyclerView.Adapter<MealPlanAdapter.MealP
 
 }
 
+
+public void Update(int position)
+{
+    for(int i=0;i<mealData.size();i++)
+    {
+        if(i==position)
+        {
+            mealData.get(i).setEnabled(true);
+        }
+        else
+        {
+
+            mealData.get(i).setEnabled(false);
+        }
+    }
+
+
+    notifyDataSetChanged();
+}
 
 public interface callback
 {

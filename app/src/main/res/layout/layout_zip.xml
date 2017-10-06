@@ -10,12 +10,11 @@
 
 <ImageView
     android:id="@+id/headerView"
-    android:layout_width="400dp"
-    android:layout_height="128dp"
+    style="@style/HeaderAttributres"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:background="@drawable/background"
+
     />
 
     <TextView
@@ -38,8 +37,8 @@
         android:textSize="18sp"
         android:background="@drawable/round_corner"
         android:layout_margin="16dp"
-        android:gravity="center"
-        android:textColorHint="@color/colorPrimary"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@id/mealPlan"
         app:layout_constraintEnd_toStartOf="@id/mealPlan"
         app:layout_constraintTop_toBottomOf="@id/mealPlan"
@@ -59,11 +58,8 @@
 
     <TextView
         android:id="@+id/zipcodedesET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SmallTextFields"
         android:text="@string/zipCode_ds"
-        android:gravity="center"
-        android:textSize="12sp"
         android:layout_margin="16dp"
         app:layout_constraintStart_toEndOf="@id/mealPlan"
         app:layout_constraintEnd_toStartOf="@id/mealPlan"

@@ -43,7 +43,7 @@ public class Splash_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_);
         initGoogleAPIClient();//Init Google API Client
 
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 

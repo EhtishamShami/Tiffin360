@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">Tiffin360</string>
-    <string name="meal_plan">Meal Plan</string>
+    <string name="meal_plan">Meal Plans</string>
     <string name="zipCode">Zipcode</string>
-    <string name="zipCode_ds">Enter Your Zip code to see the meal plans offered in your area.</string>
+    <string name="zipCode_ds">Enter your zipcode to see the meal plans offered in your area.</string>
     <string name="meal_plan_select">Select your meal plan</string>
     <string name="lauchonly">Launch Only</string>
     <string name="dinneronly">Dinner Only</string>
     <string name="laumchanddinner">Launch &amp; Dinner</string>
     <string name="dinnerandbreakfast">Dinner &amp; Breakfast</string>
-    <string name="orderHomeCooked">Order Home Cooked Meal</string>
-    <string name="preparedbyLocal">Prepaid by Local Chef</string>
+    <string name="orderHomeCooked">Order Home Cooked Meals</string>
+    <string name="preparedbyLocal">Prepaid by Local Chefs</string>
     <string name="OrderNow">Order Now</string>
     <string name="promotiontv">Meals Between $7.50 - $10.00 + Free Delivery</string>
-    <string name="mealPlan">Select Your Meal Plan</string>
-    <string name="defaultPlan">Default Meal Plan</string>
+    <string name="mealPlan">Select Meal Options</string>
+    <string name="defaultPlan">Default Meal Option</string>
     <string name="vegCheck">Vegetarian</string>
-    <string name="selectPreferred">Select additional preferred meal options</string>
+    <string name="selectPreferred">Select additional preffered meal options</string>
     <string name="chickenTV">Chicken</string>
     <string name="beefTV">Beef</string>
     <string name="seafoodTV">Seafood</string>
@@ -30,4 +30,5 @@
     <string name="payNow">Pay Now</string>
     <string name="selectDeliveryDays">Select Your Delivery Days</string>
     <string name="qty">QTY</string>
+    <string name="exit">Close</string>
 </resources>

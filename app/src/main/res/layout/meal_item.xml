@@ -37,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@string/lauchonly"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintStart_toEndOf="@id/iconIV"
         android:layout_marginStart="16dp"

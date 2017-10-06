@@ -17,7 +17,11 @@
         <item name="windowNoTitle">true</item>
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:paddingBottom">0dp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+
+
 
 
     <!-- Select Delivery day style view -->
@@ -36,6 +40,23 @@
     </style>
 
 
+    <!-- Select Delivery day style view -->
+    <style name="SilverSubHeadingTVStyle" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!-- Small TextFields -->
+    <style name="SmallTextFields" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">8sp</item>
+    </style>
+
+
+
+
     <!-- Buttom Button style -->
 
     <style name="ButtomButton" parent="Base.TextAppearance.AppCompat.Button">
@@ -51,6 +72,18 @@
         <item name="android:background">#E94C53</item>
     </style>
 
+    <!-- Transparent Background -->
+
+    <style name="Theme.Transparent" parent="android:Theme.NoTitleBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.9</item>
+        <item name="android:windowBackground">@drawable/theme_transparent</item>
+    </style>
+
 
     <style name="ButtomButtonWhite" parent="ButtomButton">
 
@@ -59,5 +92,12 @@
         <item name="android:background">#FFFFFF</item>
     </style>
 
+
+
+    <style name="HeaderAttributres">
+        <item name="android:layout_height">144dp</item>
+        <item name="android:layout_width">400dp</item>
+        <item name="android:background">@drawable/background</item>
+    </style>
 
 </resources>
