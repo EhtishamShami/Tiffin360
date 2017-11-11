@@ -1,6 +1,8 @@
 package com.example.shami.tiffin360.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,7 @@ import android.widget.TextView;
 import com.example.shami.tiffin360.Data_Models.Days_Data;
 import com.example.shami.tiffin360.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Shami on 9/11/2017.
@@ -22,10 +24,10 @@ public class DeliveryDayAdapter extends RecyclerView.Adapter<DeliveryDayAdapter.
 
 
 
-    List<Days_Data> mList;
+    ArrayList<Days_Data> mList;
 
 
-    public DeliveryDayAdapter(List<Days_Data> list)
+    public DeliveryDayAdapter(ArrayList<Days_Data> list)
     {
         mList=list;
     }
@@ -45,15 +47,45 @@ public class DeliveryDayAdapter extends RecyclerView.Adapter<DeliveryDayAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final DeliveryDayViewHolder holder, int position) {
+    public void onBindViewHolder(final DeliveryDayViewHolder holder, final int position) {
 
-        holder.dayTV.setText(mList.get(position).getDay());
-        holder.priceTV.setText(mList.get(position).getPrice());
+        holder.dayTV.setText(mList.get(position).getmDay());
+        holder.priceTV.setText(mList.get(position).getmPrice());
+        holder.quanityET.setText(Integer.toString(mList.get(position).getmCount()));
+
+        holder.quanityET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                try
+                {
+                    mList.get(position).setmCount(Integer.parseInt(holder.quanityET.getText().toString()));
+
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         holder.plusIconIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               int amount=Integer.parseInt(holder.quanityET.getText().toString());amount=amount+1;
+                int amount=Integer.parseInt(holder.quanityET.getText().toString());
+                amount=amount+1;
                 holder.quanityET.setText(Integer.toString(amount));
+                mList.get(position).setmCount(amount);
 
             }
         });
@@ -66,6 +98,7 @@ public class DeliveryDayAdapter extends RecyclerView.Adapter<DeliveryDayAdapter.
                 {
                     amount=amount-1;
                     holder.quanityET.setText(Integer.toString(amount));
+                    mList.get(position).setmCount(amount);
                 }
             }
         });
@@ -76,14 +109,23 @@ public class DeliveryDayAdapter extends RecyclerView.Adapter<DeliveryDayAdapter.
                 if(isChecked==true)
                 {
                     holder.zema_quanity_picker.setVisibility(View.VISIBLE);
+                    mList.get(position).setmFlag(true);
                 }
                 else
                 {
                     holder.zema_quanity_picker.setVisibility(View.INVISIBLE);
+                    mList.get(position).setmFlag(false);
                 }
             }
         });
 
+    }
+
+
+
+    public ArrayList<Days_Data> returnList()
+    {
+        return mList;
     }
 
     @Override

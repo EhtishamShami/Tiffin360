@@ -21,6 +21,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -43,6 +45,10 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +60,12 @@ import java.util.List;
 public class ZipCodeActivity extends AppCompatActivity implements LoaderCallbacks<String>,  LocationListener {
 
 
-    private int loaderID=1;
-    private static final String USGS_REQUEST_URL="http://api.geonames.org/findNearbyPostalCodesJSON?";
+    private static final int ZIP_CCODE_LOADER_ID=1;
+
+
+    private static final int MEAL_LOADER_ID=2;
+
+
     String lat="";
     String lng="";
 
@@ -73,22 +83,21 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
 
     MealPlanAdapter adapter;
 
-    List<Meal_Data> mList;
+    List<Meal_Data> mMeal_Data_List;
     int select_Position;
+
+
+    String[] zipCodeList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_zip);
+
         mBinding= DataBindingUtil.setContentView(ZipCodeActivity.this,R.layout.layout_zip);
-        mList=Meal();
-        adapter=new MealPlanAdapter(ZipCodeActivity.this,mList, new MealPlanAdapter.callback() {
-            @Override
-            public void SelectItem(int position) {
-                adapter.Update(position);
-                select_Position=position;
-            }
-        });
+
         Intent intent=getIntent();
         if(intent!=null)
         {
@@ -98,7 +107,7 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
             {
                 mBinding.enableLocationIV.setEnabled(false);
                 LoaderManager loaderManager = getLoaderManager();
-                loaderManager.initLoader(loaderID, null, this);
+                loaderManager.initLoader(ZIP_CCODE_LOADER_ID, null, this);
             }
 
 
@@ -113,11 +122,9 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         });
 
 
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.recyclerView.setAdapter(adapter);
 
 
-        mBinding.selectDaysBtn.setOnClickListener(new View.OnClickListener() {
+        mBinding.mealLayout.selectDaysBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                Intent deliverYDayIntent=new Intent(ZipCodeActivity.this,DeliveryDayActivity.class);
@@ -126,6 +133,35 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         });
 
 
+        mBinding.zipCodeET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mBinding.zipCodeET.getText().toString().length()==5)
+                {
+                    setVisibilty(mBinding.zipCodeET.getText().toString());
+                }
+            }
+        });
+
+        LoadServerData();
+
+    }
+
+
+    public void LoadServerData()
+    {
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(MEAL_LOADER_ID, null, this);
     }
 
     public void startActivity(Intent intent) {
@@ -134,28 +170,73 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
     }
 
 
-    public List<Meal_Data> Meal()
-    {
-        List<Meal_Data> mealData=new ArrayList<Meal_Data>();
-        mealData.add(new Meal_Data("Launch Only","Meals Between $7.50 - $10.00 + Free Delivery",false));
-        mealData.add(new Meal_Data("Dinner Only","Meals Between $7.50 - $10.00 + Free Delivery",false));
-        mealData.add(new Meal_Data("Dinner and  Laucnh","Meals Between $7.50 - $10.00 + Free Delivery",false));
-        mealData.add(new Meal_Data("Dinner and Breakfast","Meals Between $7.50 - $10.00 + Free Delivery",false));
-        return mealData;
-    }
-
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
-        URL url= Network_Utility.createurl(USGS_REQUEST_URL,lat,lng);
 
-        return new LoaderClass(this,url);
+        URL url;
+        switch (id)
+        {
+            case ZIP_CCODE_LOADER_ID:
+
+                url= Network_Utility.createurl(Constants.USGS_REQUEST_URL,lat,lng);
+                return new LoaderClass(this,url);
+
+            case MEAL_LOADER_ID:
+
+                try
+                {
+                    mBinding.avi.show();
+                    url=new URL(Constants.TIFFINAPI_URL);
+
+                    return new LoaderClass(this,url);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+                break;
+        }
+        return null;
     }
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        mBinding.zipCodeET.setText(data);
+
+        switch (loader.getId())
+        {
+            case MEAL_LOADER_ID:
+
+                mBinding.avi.hide();
+                SetMealData(data);
+                setVisibilty(mBinding.zipCodeET.getText().toString().trim());
+                break;
+            case ZIP_CCODE_LOADER_ID:
+                String postalAdress = getPostalCode(data);
+                mBinding.zipCodeET.setText(postalAdress);
+                break;
+        }
     }
+
+
+    ////
+    public void setVisibilty(String zipCode) {
+        if (zipCodeList != null)
+        {
+            for(int i=0;i<zipCodeList.length;i++)
+            {
+                if(zipCode.equals(zipCodeList[i]))
+                {
+                    mBinding.mealLayout.zipViewHolder.setVisibility(View.VISIBLE);
+
+                }
+            }
+        }
+
+
+    }
+
+
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
@@ -355,10 +436,88 @@ public class ZipCodeActivity extends AppCompatActivity implements LoaderCallback
         lat=String.valueOf(location.getLatitude());
         lng= String.valueOf(location.getLongitude());
         LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(loaderID, null, this);
+        loaderManager.initLoader(ZIP_CCODE_LOADER_ID, null, this);
     }
 
 
 
+    /////Network Responses Parsing Section
+
+    public static String getPostalCode(String str)
+    {
+        try
+        {
+            JSONObject zemaObject=new JSONObject(str);
+            JSONArray jsonArray=zemaObject.getJSONArray("postalCodes");
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                JSONObject data=jsonArray.getJSONObject(i);
+                String postalCode=data.getString("postalCode");
+                return  postalCode;
+            }
+        }
+        catch (JSONException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public void SetMealData(String data)
+    {
+
+        try
+        {
+            JSONObject mTiffinObject=new JSONObject(data);
+            JSONArray zipCodeArray=mTiffinObject.getJSONArray("zipcodelist");
+            mMeal_Data_List= new ArrayList<>();
+            zipCodeList=new String[zipCodeArray.length()];
+            for(int i=0;i<zipCodeArray.length();i++)
+            {
+                zipCodeList[i]=zipCodeArray.getString(i);
+            }
+
+            JSONArray mealOptionsArray=mTiffinObject.getJSONArray("meal options");
+
+            for(int i=0;i<mealOptionsArray.length();i++)
+            {
+                JSONObject current_meal_object=mealOptionsArray.getJSONObject(i);
+
+                String mID=current_meal_object.getString("id");
+                String mTitle=current_meal_object.getString("title");
+                String mCustom_Fields=current_meal_object.getString("custom_fields");
+                String mCustomfield_Description=current_meal_object.getString("customfield_description");
+                String mLinkBuilder=current_meal_object.getString("linkbuilder");
+                String mPrice=current_meal_object.getString("price");
+                String mCustomField_Image=current_meal_object.getString("customfield_image");
+
+                mMeal_Data_List.add(new Meal_Data(mID,mTitle,mCustom_Fields,mCustomfield_Description,mLinkBuilder,mPrice,mCustomField_Image,false));
+            }
+
+            adapter=new MealPlanAdapter(ZipCodeActivity.this,mMeal_Data_List, new MealPlanAdapter.callback() {
+                @Override
+                public void SelectItem(int position) {
+                 //   adapter.Update(position);
+                    select_Position=position;
+                    Intent deliverYDayIntent=new Intent(ZipCodeActivity.this,DeliveryDayActivity.class);
+
+                   deliverYDayIntent.putExtra(Constants.ZIP_CODE,mBinding.zipCodeET.getText().toString());
+                   deliverYDayIntent.putExtra(Constants.LINKBUILDER,mMeal_Data_List.get(select_Position).getmLinkBuilder());
+                   deliverYDayIntent.putExtra(Constants.MEAL_ID,mMeal_Data_List.get(select_Position).getmID());
+                   startActivity(deliverYDayIntent);
+                }
+            });
+            mBinding.mealLayout.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mBinding.mealLayout.recyclerView.setAdapter(adapter);
+
+        }
+        catch (JSONException ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
 
 }

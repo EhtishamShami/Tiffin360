@@ -35,6 +35,7 @@
         android:layout_height="32dp"
         android:hint="@string/zipCode"
         android:textSize="18sp"
+        android:padding="4dp"
         android:background="@drawable/round_corner"
         android:layout_margin="16dp"
         android:gravity="start|center_vertical"
@@ -77,10 +78,10 @@
         android:layout_margin="16dp"
         />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <include layout="@layout/meal_plan_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:id="@+id/mealLayout"
         app:layout_constraintTop_toBottomOf="@id/headerView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,15 +89,21 @@
         />
 
 
-    <TextView
-        android:id="@+id/selectDaysBtn"
-        style="@style/ButtomButtonPurple"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="visible"
+        app:indicatorName="LineScalePulseOutIndicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:indicatorColor="@color/colorPrimary"
+    />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -3,10 +3,6 @@ package com.example.shami.tiffin360.UtilityClass;
 import android.net.Uri;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -110,26 +106,8 @@ public class Network_Utility {
 
 
 
-    public static String getPostalCode(String str)
-    {
-        try
-        {
-            JSONObject zemaObject=new JSONObject(str);
-            JSONArray jsonArray=zemaObject.getJSONArray("postalCodes");
-            for(int i=0;i<jsonArray.length();i++)
-            {
-                JSONObject data=jsonArray.getJSONObject(i);
-                String postalCode=data.getString("postalCode");
-                return  postalCode;
-            }
-        }
-        catch (JSONException ex)
-        {
-            ex.printStackTrace();
-        }
 
-        return null;
-    }
+
 
 
 }

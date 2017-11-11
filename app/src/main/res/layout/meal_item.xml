@@ -45,7 +45,7 @@
 
     <TextView
         android:id="@+id/priceTV"
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:textSize="18px"
         tools:text="($9.85 per meal)-Lauch will be dilvered between 1pm and 2pm"

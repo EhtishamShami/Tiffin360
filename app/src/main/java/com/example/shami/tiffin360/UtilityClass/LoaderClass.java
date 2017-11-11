@@ -43,14 +43,12 @@ public class LoaderClass extends  AsyncTaskLoader<String> {
         String jsonResponse="";
         try{
             jsonResponse= Network_Utility.makeHttpRequest(mUrl);
-            postalAdress = Network_Utility.getPostalCode(jsonResponse);
-
         }
         catch (IOException e)
         {
             Log.e(LOG_TAG,"Error in making http request"+e );
         }
 
-        return postalAdress;
+        return jsonResponse;
     }
 }
